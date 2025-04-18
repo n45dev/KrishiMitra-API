@@ -1,0 +1,46 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/crops": {
+            "get": {
+                "description": "get all crops",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "crops"
+                ],
+                "summary": "get crops",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "list"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "post a crop",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "crops"
+                ],
+                "summary": "post crops",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+info:
+  contact: {}
+paths:
+  /crops:
+    get:
+      description: get all crops
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: list
+      summary: get crops
+      tags:
+      - crops
+    post:
+      consumes:
+      - application/json
+      description: post a crop
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: post crops
+      tags:
+      - crops
+swagger: "2.0"

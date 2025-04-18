@@ -8,5 +8,8 @@ import (
 func main() {
 	db.ConnectDB()
 	router := routes.SetupRouter()
-	router.Run("127.0.0.1:8080")
+	err := router.Run("127.0.0.1:8080")
+	if err != nil {
+		return
+	}
 }
