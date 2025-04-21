@@ -21,8 +21,8 @@ paths:
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
       summary: post crops
       tags:
       - crops

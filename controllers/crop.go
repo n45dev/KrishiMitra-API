@@ -1,4 +1,4 @@
-package handlers
+package controllers
 
 import (
 	"github.com/gin-gonic/gin"
@@ -32,7 +32,7 @@ func GetCrops(c *gin.Context) {
 // @Tags crops
 // @Accept json
 // @Produce json
-// @Success 200
+// @Success 201
 // @Router /crops [post]
 func PostCrops(c *gin.Context) {
 	var crop models.Crop

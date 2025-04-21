@@ -4,8 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"krishimitra-api/controllers"
 	"krishimitra-api/docs"
-	"krishimitra-api/handlers"
+	"krishimitra-api/middlewares"
 )
 
 const version = "v0.1"
@@ -16,19 +17,28 @@ func SetupRouter() *gin.Engine {
 
 	docs.SwaggerInfo.BasePath = basePath
 
-	router.GET(basePath+"/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-	router.GET(basePath+"/ping", func(c *gin.Context) {
+	router.GET("/ping", func(c *gin.Context) {
 		c.IndentedJSON(200, "pong")
 	})
 
-	router.GET(basePath+"/crops", handlers.GetCrops)
-	router.POST(basePath+"/crops", handlers.PostCrops)
+	router.POST("/register", controllers.RegisterUser)
 
-	router.GET(basePath+"/products", handlers.GetProducts)
-	router.POST(basePath+"/products", handlers.PostProducts)
+	router.POST("/login", controllers.LoginUser)
 
-	router.GET(basePath+"/news", handlers.GetNews)
+	p := router.Group(basePath)
+	p.Use(middlewares.JwtAuthMiddleware())
+
+	p.GET("/users/me", controllers.CurrentUser)
+
+	p.GET("/crops", controllers.GetCrops)
+	p.POST("/crops", controllers.PostCrops)
+
+	p.GET("/products", controllers.GetProducts)
+	p.POST("/products", controllers.PostProducts)
+
+	p.GET("/news", controllers.GetNews)
 
 	return router
 }

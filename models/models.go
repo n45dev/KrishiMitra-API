@@ -38,3 +38,16 @@ type HistoryItem struct {
 	Quantity  int    `json:"quantity"`
 	Type      string `json:"type"`
 }
+
+type User struct {
+	gorm.Model
+	Name           string `gorm:"size:255;not null;unique" json:"name"`
+	Email          string `gorm:"size:255;not null;unique" json:"email"`
+	HashedPassword string `gorm:"size:255;not null;"`
+}
+
+type UserRegister struct {
+	Name     string `json:"name" binding:"required"`
+	Email    string `json:"email" binding:"required"`
+	Password string `json:"password" binding:"required"`
+}
