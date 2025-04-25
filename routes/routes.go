@@ -13,22 +13,21 @@ const version = "v0.1"
 const basePath = "/api/" + version
 
 func SetupRouter() *gin.Engine {
-	router := gin.Default()
+	r := gin.Default()
+	p := r.Group(basePath)
+	p.Use(middlewares.JwtAuthMiddleware())
 
 	docs.SwaggerInfo.BasePath = basePath
 
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-	router.GET("/ping", func(c *gin.Context) {
+	r.GET("/ping", func(c *gin.Context) {
 		c.IndentedJSON(200, "pong")
 	})
 
-	router.POST("/register", controllers.RegisterUser)
+	r.POST("/register", controllers.RegisterUser)
 
-	router.POST("/login", controllers.LoginUser)
-
-	p := router.Group(basePath)
-	p.Use(middlewares.JwtAuthMiddleware())
+	r.POST("/login", controllers.LoginUser)
 
 	p.GET("/users/me", controllers.CurrentUser)
 
@@ -40,5 +39,5 @@ func SetupRouter() *gin.Engine {
 
 	p.GET("/news", controllers.GetNews)
 
-	return router
+	return r
 }

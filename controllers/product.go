@@ -22,3 +22,13 @@ func PostProducts(c *gin.Context) {
 	db.DB.Create(&product)
 	c.IndentedJSON(http.StatusCreated, product)
 }
+
+func PostSellerProducts(c *gin.Context) {
+	var productSell models.ProductSell
+	if err := c.ShouldBindJSON(&productSell); err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	db.DB.Create(&productSell)
+	c.IndentedJSON(http.StatusCreated, productSell)
+}

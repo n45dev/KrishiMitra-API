@@ -30,6 +30,7 @@ type NewsArticle struct {
 	Content          string `json:"content"`
 	Tags             string `json:"tags"`
 	Image            string `json:"image"`
+	Date             string `json:"date"`
 }
 
 type HistoryItem struct {
@@ -50,4 +51,13 @@ type UserRegister struct {
 	Name     string `json:"name" binding:"required"`
 	Email    string `json:"email" binding:"required"`
 	Password string `json:"password" binding:"required"`
+}
+
+type ProductSell struct {
+	gorm.Model
+	ProductID uint   `json:"product_id"`
+	Quantity  int    `json:"quantity"`
+	Type      string `json:"type"`
+	SaleDate  string `json:"sale_date"`
+	Address   string `json:"address"`
 }
